@@ -1,11 +1,11 @@
 clear;
-N=100;
-nu=1;
-k=1;
+N=600;
+nu=3;
+k=200;
 l=1;
 
-dt=0.000001;
-dh=0.000001;
+dt=0.00001;
+dh=0.001;
 
 x_top_r=1;
 y_top_r=1;
@@ -28,23 +28,23 @@ for i=1:N
     x(2,i)=(1)*rand;
 end 
 
-for time=1:300
+for time=1:3000
     for i=1:N 
-        Energy=Compute_Potential_Energy(x,x,N);
+        Energy=Compute_Potential_Energy(x,x,xc,yc,l,N,k);
         
-        xper=x;
-        xper1(1,i)=xper(1,i)+dh;
+        xper1=x;
+        xper1(1,i)=xper1(1,i)+dh;
         
         xper2=x;
-        xper2(2,i)=xper(2,i)+dh;
+        xper2(2,i)=xper2(2,i)+dh;
         
-        EnergyX=Compute_Potential_Energy(x,xper,N);
-        Penetrationx=Compute_Penetration(x,xc,l,i);
-        x(i)=x(i)-dt/nu*(EnergyX-Energy)/dh;
+        EnergyX=Compute_Potential_Energy(x,xper1,xc,yc,l,N,k);
+       
+        x(1,i)=x(1,i)-dt/nu*(EnergyX-Energy)/dh;
         
-       EnergyY=Compute_Potential_Energy(x,xper2,N);
-       Penetrationy=Compute_Penetration(x,yc,l,i);
-       x(i)=x(i)-dt/nu*(EnergyY-Energy)/dh;
+       EnergyY=Compute_Potential_Energy(x,xper2,xc,yc,l,N,k);
+      
+       x(2,i)=x(2,i)-dt/nu*(EnergyY-Energy)/dh;
         
        
     end

@@ -1,4 +1,4 @@
-function [P] =Compute_Potential_Energy(x,xper,xc,yc,l,N) %initialization(L,H,N,flag)
+function [P] =Compute_Potential_Energy(x,xper,xc,yc,l,N,k) %initialization(L,H,N,flag)
 %for now size fixed (2,2)
 %flag 1 -upper plate -1 -lower plate
 %N_y = fix(sqrt(N*L/H));
@@ -23,8 +23,8 @@ for  j=1:N
             end
         Penetration=Penetrationx+Penetrationy;
         Energy=Energy+1/sqrt((xper(1,i)-x(1,j))*(xper(1,i)-x(1,j))+(xper(2,i)-x(2,j))*(xper(2,i)-x(2,j)));
-        Energy=Energy+Penetration;
      end
+     Energy=Energy+k*Penetration*Penetration;
 end
 
 P=Energy;
