@@ -7,24 +7,22 @@ Energy=0;
 Penetrationx=0;
 Penetrationy=0;
 Penetration=0;
+for  j=1:N      
+     for  i=1:(j-1)
+        Energy=Energy+1/sqrt((xper(1,i)-x(1,j))*(xper(1,i)-x(1,j))+(xper(2,i)-x(2,j))*(xper(2,i)-x(2,j)));
+     end
+   
+end
+
 for  j=1:N
-     for  i=1:j
-         if(i==j)
-             continue;
-         end
-         
-         Penetrationx=abs(x(1,i)-xc)-l/2;
+        Penetrationx=abs(xper(1,j)-xc)-l/2;
             if (Penetrationx<0)
                 Penetrationx=0;
             end
-         Penetrationy=abs(x(2,i)-yc)-l/2;
+         Penetrationy=abs(xper(2,j)-yc)-l/2;
             if (Penetrationy<0)
                 Penetrationy=0;
             end
-        Penetration=Penetrationx+Penetrationy;
-        Energy=Energy+1/sqrt((xper(1,i)-x(1,j))*(xper(1,i)-x(1,j))+(xper(2,i)-x(2,j))*(xper(2,i)-x(2,j)));
-     end
-     Energy=Energy+k*Penetration*Penetration;
+        Penetration=Penetrationx*Penetrationx+Penetrationy*Penetrationy;
 end
-
-P=Energy;
+P=Energy+Penetration*k;
