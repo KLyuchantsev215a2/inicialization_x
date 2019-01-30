@@ -6,12 +6,15 @@ l=1;
 
 rho_0=1;
 rho=ones(N,1);
+rho_per1=ones(N,1);
+rho_per2=ones(N,1);
+
 V=ones(N,1);
 W=zeros(N,N);
 m=l*l/N;
 h=sqrt(m/rho_0);
 
-dt=0.00000003;
+dt=0.000003;
 dh=0.001;
 charge=1;
 
@@ -45,24 +48,28 @@ for time=1:1500
     %W=ComputeW_cor(N,x,x,V,h);
     
     disp(time);
+    rho=ComputeRho(m,N,W,x,h);
+    
     Energy=Compute_Potential_Energy(x,xc,yc,l,N,k,rho);
     
     for i=1:N  
         xper1=x;
         xper1(1,i)=xper1(1,i)+dh;
+      %  rho_per1=ComputeRho(m,N,W,xper1,h);
         
         xper2=x;
         xper2(2,i)=xper2(2,i)+dh;
+       % rho_per2=ComputeRho(m,N,W,xper2,h);
         
-       EnergyX(i)=Compute_Potential_Energy(xper1,xc,yc,l,N,k,V)-Energy;
-       EnergyY(i)=Compute_Potential_Energy(xper2,xc,yc,l,N,k,V)-Energy;     
+       EnergyX(i)=Compute_Potential_Energy(xper1,xc,yc,l,N,k,rho)-Energy;
+       EnergyY(i)=Compute_Potential_Energy(xper2,xc,yc,l,N,k,rho)-Energy;     
     end
     for i=1:N  
     x(1,i)=x(1,i)-dt/nu*EnergyX(i)/dh;
     x(2,i)=x(2,i)-dt/nu*EnergyY(i)/dh;
     end
     
-    rho=ComputeRho(m,N,W,x,h);
+   
     
     tri=delaunay(x(1,1:N),x(2,1:N));
     trisurf(tri,x(1,1:N),x(2,1:N),rho(1:N));

@@ -9,7 +9,7 @@ Penetrationy=0;
 
 for  j=1:N      
      for  i=1:(j-1)
-        Energy=Energy+(1/rho(j)+1/rho(i))/sqrt((x(1,i)-x(1,j))*(x(1,i)-x(1,j))+(x(2,i)-x(2,j))*(x(2,i)-x(2,j)));
+        Energy=Energy+(rho(i)*rho(i)+rho(j)*rho(j))/((x(1,i)-x(1,j))*(x(1,i)-x(1,j))+(x(2,i)-x(2,j))*(x(2,i)-x(2,j)));
      end
    
 end
