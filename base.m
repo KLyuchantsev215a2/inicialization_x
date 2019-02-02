@@ -1,9 +1,16 @@
 clear;
 N=100;
 nu=3;
-k=300000;
+k=10000000;
 l=1;
 
+ fig = figure();
+ % создание первого пустого кадра
+  set(fig,'Position',[150,100,900,900]);
+   frame = getframe(fig);
+  [im,map] = rgb2ind(frame.cdata,4);
+  imwrite(im,map,'animation3.gif','DelayTime',0,'Loopcount',inf);
+ 
 rho_0=1;
 rho=ones(N,1);
 rho_per1=ones(N,1);
@@ -14,7 +21,7 @@ W=zeros(N,N);
 m=l*l/N;
 h=sqrt(m/rho_0);
 
-dt=0.000003;
+dt=0.00000003;
 dh=0.001;
 charge=1;
 
@@ -77,6 +84,11 @@ for time=1:1500
     
     plot(x(1,1:N),x(2,1:N),'.')
     subplot(1,2,2);
+    
+     frame = getframe(fig);
+         [im,map] = rgb2ind(frame.cdata,4);
+         imwrite(im,map,'animation3.gif','DelayTime',0.1,'WriteMode','Append');
+         
     pause(0.0001)
 end
 
