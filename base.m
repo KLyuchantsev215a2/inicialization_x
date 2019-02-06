@@ -6,7 +6,7 @@ l=1;
 
  fig = figure();
  % создание первого пустого кадра
-  set(fig,'Position',[150,100,900,900]);
+  set(fig,'Position',[250,100,1300,600]);
    frame = getframe(fig);
   [im,map] = rgb2ind(frame.cdata,4);
   imwrite(im,map,'animation3.gif','DelayTime',0,'Loopcount',inf);
@@ -19,10 +19,10 @@ rho_per2=ones(N,1);
 V=ones(N,1);
 W=zeros(N,N);
 m=l*l/N;
-h=sqrt(m/rho_0);
+h=2*sqrt(m/rho_0);
 
 dt=0.00000003;
-dh=0.001;
+dh=0.0001;
 charge=1;
 
 x_top_r=1;
