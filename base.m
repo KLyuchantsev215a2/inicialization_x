@@ -3,7 +3,7 @@ N=100;
 nu=3;
 k=10000000;
 l=1;
-
+r=0.25;
  fig = figure();
  % создание первого пустого кадра
   set(fig,'Position',[250,100,1300,600]);
@@ -57,7 +57,7 @@ for time=1:1500
     disp(time);
     rho=ComputeRho(m,N,W,x,h);
     
-    Energy=Compute_Potential_Energy(x,xc,yc,l,N,k,rho);
+    Energy=Compute_Potential_Energy(x,xc,yc,l,N,k,rho,r);
     
     for i=1:N  
         xper1=x;
@@ -68,8 +68,8 @@ for time=1:1500
         xper2(2,i)=xper2(2,i)+dh;
        % rho_per2=ComputeRho(m,N,W,xper2,h);
         
-       EnergyX(i)=Compute_Potential_Energy(xper1,xc,yc,l,N,k,rho)-Energy;
-       EnergyY(i)=Compute_Potential_Energy(xper2,xc,yc,l,N,k,rho)-Energy;     
+       EnergyX(i)=Compute_Potential_Energy(xper1,xc,yc,l,N,k,rho,r)-Energy;
+       EnergyY(i)=Compute_Potential_Energy(xper2,xc,yc,l,N,k,rho,r)-Energy;     
     end
     for i=1:N  
     x(1,i)=x(1,i)-dt/nu*EnergyX(i)/dh;
@@ -83,6 +83,7 @@ for time=1:1500
     subplot(1,2,1);
     
     plot(x(1,1:N),x(2,1:N),'.')
+    axis([-0.2 1.2 -0.2 1.2]);
     subplot(1,2,2);
     
      frame = getframe(fig);
