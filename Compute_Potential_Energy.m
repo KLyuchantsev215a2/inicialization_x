@@ -14,7 +14,7 @@ Penetrationr1=0;
 Penetrationr2=0;
 for  j=1:N      
      for  i=1:(j-1)
-        Energy=Energy+(1)/((x(1,i)-x(1,j))*(x(1,i)-x(1,j))+(x(2,i)-x(2,j))*(x(2,i)-x(2,j)))^(2);
+        Energy=Energy+(1/100)/((x(1,i)-x(1,j))*(x(1,i)-x(1,j))+(x(2,i)-x(2,j))*(x(2,i)-x(2,j)))^(2);
      end
    
 end

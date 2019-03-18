@@ -1,5 +1,5 @@
 clear;
-N=200;
+N=1000;
 nu=3;
 k=2000000000;
 
@@ -26,7 +26,7 @@ rho_per2=ones(N,1);
 
 V=ones(N,1);
 W=zeros(N,N);
-m=xl*yl/(N-2*pi*r*r);
+m=(xl*yl-2*pi*r*r)/(N);
 h=1.4*sqrt(m/rho_0);
 
 dt=0.000000001;
@@ -82,7 +82,7 @@ for time=1:4500
     %W=ComputeW_cor(N,x,x,V,h);
     
     disp(time);
-    rho=ComputeRho(m,N,W,x,h);
+   % rho=ComputeRho(m,N,W,x,h);
     
     Energy=Compute_Potential_Energy(x,xc,yc,xl,yl,N,k,rho,r);
     
@@ -105,15 +105,15 @@ for time=1:4500
     
    
     
-     tri=delaunay(x(1,1:N),x(2,1:N));
-     trisurf(tri,x(1,1:N),x(2,1:N),rho(1:N));
-      axis([-0.2 1.2 -0.2 1.2 0 1.6]);
+    % tri=delaunay(x(1,1:N),x(2,1:N));
+    %  trisurf(tri,x(1,1:N),x(2,1:N),rho(1:N));
+    %  axis([-0.2 1.2 -0.2 1.2 0 1.6]);
 
-    subplot(1,2,1);
+    %subplot(1,2,1);
     
     plot(x(1,1:N),x(2,1:N),'.',sx1,sy1,'k',sx2,sy2,'k',sx3,sy3,'k',sx4,sy4,'k',xr1,yr1,'k',xr2,yr2,'k');
     axis([-0.2 1.4 -0.2 1.4]);
-    subplot(1,2,2);
+    %subplot(1,2,2);
     
      frame = getframe(fig);
          [im,map] = rgb2ind(frame.cdata,4);
