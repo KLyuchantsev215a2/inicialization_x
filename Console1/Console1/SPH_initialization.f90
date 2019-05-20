@@ -10,17 +10,18 @@ program geometry
     
  
     real*8, allocatable :: x(:,:)
+    real*8, allocatable :: h(:)
     real*8, allocatable :: v(:,:)
     
     open (unit=1, file="input.txt", status='old',    &
              access='sequential', form='formatted', action='read' )
     open (unit=2, file="output.txt")
     
-    Nx=28
-    Ny=30
-    Nxl=35
+    Nx=50
+    Ny=55
+    Nxl=63
     
-    bias=3.0d0
+    bias=1.0d0
     Lx=1.25d0-0.7d0
     Ly=0.6d0
     
@@ -33,11 +34,13 @@ program geometry
 
         allocate(x(2,int((Nx+1)*(Ny+1)+(Nx+1)*Ny+Nxl*Ny+Nxl*Ny)))
         
+        !h=S/N
         
-         i=0
+        i=0
         do xi=0,int(Nx)
             do yi=0,int(Ny) 
                 i=i+1
+               ! h(i)=
                 x(1,i) = Ax*xi+Bx*xi*xi
                 x(2,i) = Ay*yi+By*yi*yi
                 
@@ -105,8 +108,8 @@ program geometry
           
         
        do i=1,((Nx+1)*(Ny+1)+(Nx+1)*Ny+Nxl*Ny+Nxl*Ny)
+           x(1,i)=x(1,i)+0.7d0
             write (2,1110) i,x(1,i),x(2,i)
-            x(1,i)=x(1,i)+0.7d0
        enddo
         
         

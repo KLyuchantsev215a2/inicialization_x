@@ -24,7 +24,7 @@
             CALL gp%ylabel('y [mm]')
             Call gp%options('set style data linespoints')
             !Call Plot to draw a vector against a vector of data
-            call gp%options('set xrange[-0.75:0.60];set yrange [-0.625:0.625];')
+            call gp%options('set xrange[-0.05:1.30];set yrange [-0.625:0.625];')
            call gp%plot(xg, yg,'title "square coordinates" with points lt 6 lc rgb "#000000"')
            ! call gp%plot(xh, yh,'title "square coordinates" with points lt 6 lc rgb "#000000"')
   
