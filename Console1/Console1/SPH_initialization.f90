@@ -4,7 +4,7 @@ program geometry
 !d размерность задачи нигде пока не используется
  
     real*8::Nx,Ny,Nxl
-    integer::i,yi,xi
+    integer::i,yi,xi,Nreal
     real*8::rho_0, v_0, T, Lx, Ly
     real*8::bias,Ax,Bx,Ay,By
     
@@ -17,9 +17,9 @@ program geometry
              access='sequential', form='formatted', action='read' )
     open (unit=2, file="output.txt")
     
-    Nx=50
-    Ny=55
-    Nxl=63
+   ! Nx=50
+   ! Ny=55
+    !Nxl=63
     
     bias=1.0d0
     Lx=1.25d0-0.7d0
@@ -31,62 +31,62 @@ program geometry
     By=((bias-1.0d0)*Ly)/(Ny*(Ny*bias-1.0d0-bias))
     Ay=(Ly-By*Ny*Ny)/Ny
     
+    Nreal=216*72
 
-        allocate(x(2,int((Nx+1)*(Ny+1)+(Nx+1)*Ny+Nxl*Ny+Nxl*Ny)))
+        allocate(x(2,Nreal))
         
         !h=S/N
         
-        i=0
-        do xi=0,int(Nx)
-            do yi=0,int(Ny) 
-                i=i+1
+     !   i=0
+      !  do xi=0,int(Nx)
+      !      do yi=0,int(Ny) 
+      !          i=i+1
                ! h(i)=
-                x(1,i) = Ax*xi+Bx*xi*xi
-                x(2,i) = Ay*yi+By*yi*yi
+       !         x(1,i) = Ax*xi+Bx*xi*xi
+       !         x(2,i) = Ay*yi+By*yi*yi
                 
-            enddo
-        enddo
-        
-        do xi=0,int(Nx)
-            do yi=1,int(Ny) 
-                i=i+1
-                x(1,i) = Ax*xi+Bx*xi*xi
-                x(2,i) =-(Ay*yi+By*yi*yi)
-                
-            enddo
-        enddo
-        
-        Lx=0.7d0
-        Bx=((bias-1.0d0)*Lx)/(Nxl*(Nxl*bias-1.0d0-bias))
-        Ax=(Lx-Bx*Nxl*Nxl)/Nxl
-    
-         do xi=1,int(Nxl)
-            do yi=1,int(Ny) 
-                i=i+1
-                x(1,i) =-(Ax*xi+Bx*xi*xi)
-                x(2,i) = Ay*yi+By*yi*yi 
-            enddo
-         enddo
-         
-         
-         
-           do xi=1,int(Nxl)
-            do yi=1,int(Ny) 
-                i=i+1
-                x(1,i) =-(Ax*xi+Bx*xi*xi)
-                x(2,i) =-(Ay*yi+By*yi*yi) 
-            enddo
-        enddo
-        
-       ! i=1
-       ! do yi=1,32
-      !      do xi=1,65
-      !          x(1,i) = real(xi-1)/real(65-1)*1.25
-      !          x(2,i) = real(yi-1)/real(32-1)*0.6
-       !        
-        !        i=i+1
        !     enddo
-       ! enddo
+      !  enddo
+        
+      !  do xi=0,int(Nx)
+      !      do yi=1,int(Ny) 
+      !          i=i+1
+     !           x(1,i) = Ax*xi+Bx*xi*xi
+      !          x(2,i) =-(Ay*yi+By*yi*yi)
+     !           
+     !       enddo
+     !   enddo
+        
+     !   Lx=0.7d0
+     !   Bx=((bias-1.0d0)*Lx)/(Nxl*(Nxl*bias-1.0d0-bias))
+     !   Ax=(Lx-Bx*Nxl*Nxl)/Nxl
+    
+     !    do xi=1,int(Nxl)
+     !       do yi=1,int(Ny) 
+     !           i=i+1
+      !          x(1,i) =-(Ax*xi+Bx*xi*xi)
+      !          x(2,i) = Ay*yi+By*yi*yi 
+      !      enddo
+     !    enddo
+         
+         
+         
+      !     do xi=1,int(Nxl)
+      !      do yi=1,int(Ny) 
+       !         i=i+1
+       !         x(1,i) =-(Ax*xi+Bx*xi*xi)
+      !          x(2,i) =-(Ay*yi+By*yi*yi) 
+      !      enddo
+     !   enddo
+        
+        i=1
+        do yi=1,216
+            do xi=1,72
+                x(1,i) = real(xi-1)/real(72-1)*1.0d0
+                x(2,i) = real(yi-1)/real(216-1)*3.0d0
+                i=i+1
+            enddo
+        enddo
         
       !  do i=1,Nx
             
@@ -98,7 +98,7 @@ program geometry
          !       endif
             
        ! enddo
-       ! call plot_init(x,Nx)
+        call plot_init(x,Nreal)
         
         
 
@@ -107,13 +107,11 @@ program geometry
       !  deallocate(v)
           
         
-       do i=1,((Nx+1)*(Ny+1)+(Nx+1)*Ny+Nxl*Ny+Nxl*Ny)
-           x(1,i)=x(1,i)+0.7d0
+       do i=1,Nreal
             write (2,1110) i,x(1,i),x(2,i)
        enddo
         
         
-        call plot_init(x,int(i))
         deallocate(x)
         pause
         
